@@ -10,6 +10,8 @@ module PromptjoyRuby
   class Error < StandardError; end
 
   class Client
+    BASE_API_URL = "https://api.promptjoy.com"
+
     def initialize(api_key = nil, logger: Logger.new(STDOUT))
       @api_key = api_key
       @logger = logger
@@ -17,6 +19,11 @@ module PromptjoyRuby
 
     def find_by_api_url(url, api_key: nil)
       Api.new(api_key || @api_key, url, logger: @logger)
+    end
+
+    def find(id)
+      url = "#{BASE_API_URL}/api/#{id}"
+      Api.new(@api_key, url, logger: @logger)
     end
   end
 
