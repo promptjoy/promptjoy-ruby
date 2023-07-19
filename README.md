@@ -49,6 +49,10 @@ You can find the API you want to interact with by using its URL. You can find th
 api = client.find_by_api_url('https://api.promptjoy.com/api/id')
 ```
 
+You can also just find the API by its id:
+```ruby
+api = client.find('id')
+```
 
 
 To call the API, pass in the data as a Hash:
