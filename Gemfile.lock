@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    promptjoy-ruby (0.1.2)
+    promptjoy-ruby (0.1.3)
 
 GEM
   remote: https://rubygems.org/

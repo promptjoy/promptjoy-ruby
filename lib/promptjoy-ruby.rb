@@ -12,7 +12,7 @@ module PromptjoyRuby
   class Client
     BASE_API_URL = "https://api.promptjoy.com"
 
-    def initialize(api_key = nil, logger: Logger.new(STDOUT))
+    def initialize(api_key = nil, logger: Logger.new(STDOUT), timeout: 120)
       @api_key = api_key
       @logger = logger
     end
@@ -30,7 +30,7 @@ module PromptjoyRuby
   class Api
     USER_AGENT = "PromptjoyRubyGem/#{PromptjoyRuby::VERSION}"
 
-    def initialize(api_key, url, logger: Logger.new(STDOUT))
+    def initialize(api_key, url, logger: Logger.new(STDOUT), timeout: 120)
       @api_key = api_key
       @url = url
       @logger = logger
@@ -39,7 +39,9 @@ module PromptjoyRuby
     def call(api_data, client_ip = nil, referrer = nil)
       uri = URI(@url)
       http = Net::HTTP.new(uri.host, uri.port)
-      
+      http.open_timeout = @timeout
+      http.read_timeout = @timeout
+
       if uri.scheme == 'https'
         http.use_ssl = true
         http.verify_mode = OpenSSL::SSL::VERIFY_PEER
