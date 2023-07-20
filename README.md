@@ -2,7 +2,14 @@
 
 Welcome to the official Ruby client for the [PromptJoy](https://promptjoy.com).
 
-PromptJoy is a platform that enables you to build scalable APIs by simply describing what you want. This client helps you interact with PromptJoy in a Ruby-friendly way.
+[PromptJoy](https://promptjoy.com) is a platform that enables you to build scalable APIs by simply describing what you want. 
+
+Example APIs built on [PromptJoy](https://promptjoy.com):
+* Travel recommendation https://promptjoy.com/apis/mPBCOr
+* TV show -> podcast recommendation: https://promptjoy.com/apis/mxqCWW
+* Schema transformation: https://promptjoy.com/apis/jn8Cep
+* Book search engine: https://promptjoy.com/apis/mVMCpq
+  
 
 ## Installation
 
@@ -36,12 +43,16 @@ client = PromptjoyRuby::Client.new('your_api_key')
 
 ```
 
-You can find the API you want to interact with by using its URL:
+You can find the API you want to interact with by using its URL. You can find the URL in the endpoint field of the API's page:
 
 ```ruby
-api = client.find_by_api_url('https://api.promptjoy.com/test-endpoint')
+api = client.find_by_api_url('https://api.promptjoy.com/api/id')
 ```
 
+You can also just find the API by its id:
+```ruby
+api = client.find('id')
+```
 
 
 To call the API, pass in the data as a Hash:
@@ -53,6 +64,20 @@ response = api.call({
 })
 ```
 
+## Example
+
+The following example uses PromptJoy to build an API that recommends an open-source software package based on a problem to be solved: https://promptjoy.com/apis/jNqC7A
+
+``` ruby
+> require 'promptjoy-ruby'
+> client = PromptjoyRuby::Client.new('***********************')
+> api = client.find_by_api_url('https://api.promptjoy.com/api/jNqC7A')
+> response = api.call({problem: "queue processing in ruby"})
+> puts response
+
+{"software"=>"Sidekiq", "reason"=>"Efficient and reliable background processing 
+for Ruby", "github_url"=>"https://github.com/mperham/sidekiq"}
+```
 
 
 ## Error Handling
